@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './App.css'
+import { Container, Typography } from '@mui/material';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -38,9 +39,22 @@ function App() {
             }
     
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []); 
   return (
     <>
-
+     <Container>
+      <div className='container'>
+      <Typography
+          variant="h4"
+          sx={{ my: 4, textAlign: "center", color: "primary.main" }}
+        >
+          Job Listings
+        </Typography>
+      </div>
+     </Container>
     </>
   )
 }
