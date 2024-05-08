@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react'
 import './App.css'
-import { Container, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -13,6 +14,20 @@ function App() {
   const [companyFilter, setCompanyFilter] = useState(""); // Default filter value for company name
   const [locationFilter, setLocationFilter] = useState(""); // Default filter value for location
   const [remoteFilter, setRemoteFilter] = useState(""); // Default filter value for remote
+  
+  // Function to filter jobs based on minimum base pay, experience, role, company name, location, and remote
+  const filterJobs = () => {
+    const filtered = jobs.filter(job =>
+      job.minJdSalary >= minSalaryFilter &&
+      job.minExp >= minExpFilter &&
+      (roleFilters.length === 0 || roleFilters.includes(job.jobRole)) &&
+      (companyFilter === "" || job.companyName.toLowerCase().includes(companyFilter.toLowerCase())) &&
+      (locationFilter === "" || job.location.toLowerCase() === locationFilter.toLowerCase()) &&
+      (remoteFilter === "" || (remoteFilter === "remote" && job.location.toLowerCase() === "remote") || (remoteFilter !== "remote" && job.location.toLowerCase() !== "remote"))
+    );
+    setFilteredJobs(filtered);
+  };
+  
   // API Integration
   const fetchData = async () => {
     const myHeaders = new Headers();
