@@ -1,7 +1,9 @@
-import { useState,useEffect } from 'react'
-import './App.css'
-import { Container, Grid, Typography } from '@mui/material';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import JobCard from "./JobCard";
+import { Container, Grid, Typography, Select, MenuItem, Box, TextField, InputLabel } from "@mui/material";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { RoleFilter, ExperienceFilter, LocationFilter, RemoteFilter, MinSalaryFilter, CompanyFilter } from './Filters'; // Adjust the path as per your file structure
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -66,6 +68,38 @@ function App() {
     fetchData();
   }, []); 
 
+  useEffect(() => {
+    filterJobs();
+  }, [jobs, minSalaryFilter, minExpFilter, roleFilters, companyFilter, locationFilter, remoteFilter]); // Update filtered jobs when jobs or filter values change
+
+
+  const handleSalaryFilterChange = (event) => {
+    setMinSalaryFilter(event.target.value);
+  };
+
+  const handleExpFilterChange = (event) => {
+    setMinExpFilter(event.target.value);
+  };
+
+  const handleRoleFilterChange = (event) => {
+    const selectedRoles = event.target.value;
+    setRoleFilters(selectedRoles);
+  };
+
+  const handleCompanyFilterChange = (event) => {
+    setCompanyFilter(event.target.value);
+  };
+
+  const handleLocationFilterChange = (event) => {
+    const selectedLocation = event.target.value;
+    setLocationFilter(selectedLocation);
+  };
+
+  const handleRemoteFilterChange = (event) => {
+    setRemoteFilter(event.target.value);
+  };
+
+
   return (
     <>
      <Container>
@@ -77,6 +111,18 @@ function App() {
           Job Listings
         </Typography>
 
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>
+         
+         
+         <RoleFilter value={roleFilters} onChange={handleRoleFilterChange} />
+         <ExperienceFilter value={minExpFilter} onChange={handleExpFilterChange} />
+         <LocationFilter value={locationFilter} onChange={handleLocationFilterChange} />
+         <RemoteFilter value={remoteFilter} onChange={handleRemoteFilterChange} />
+         <MinSalaryFilter value={minSalaryFilter} onChange={handleSalaryFilterChange} />
+         <CompanyFilter value={companyFilter} onChange={handleCompanyFilterChange} />
+       
+          
+       </Box>
         
 
         <InfiniteScroll

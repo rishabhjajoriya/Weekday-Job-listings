@@ -1,18 +1,17 @@
+import { faIndianRupeeSign, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+import { faBolt } from "@fortawesome/free-solid-svg-icons/faBolt";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-    styled,
-  } from "@mui/material";
-  import React from "react";
-  import { useState } from "react";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
-  import { faBolt } from "@fortawesome/free-solid-svg-icons/faBolt";
-  import { faSquareCheck } from "@fortawesome/free-solid-svg-icons/faSquareCheck";
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  styled,
+} from "@mui/material";
+import React from "react";
+import { useState } from "react";
 
 
 const CustomDescription = styled("p")(({ expanded }) => ({
@@ -105,10 +104,11 @@ const JobCard = ({ job }) => {
             sx={{ fontFamily: "Lexend" }}
           >
             <span style={{ fontWeight: "bold" }}>
-              Estimated Salary : <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
+              Estimated Salary : <FontAwesomeIcon icon={faIndianRupeeSign} />
               {job.minJdSalary == null ? 0 : job.minJdSalary} -{" "}
               {job.maxJdSalary} LPA{" "}
             </span>
+       
             <FontAwesomeIcon
               icon={faSquareCheck}
               style={{ color: "#03C30A" }}
@@ -212,9 +212,6 @@ const JobCard = ({ job }) => {
           </Button>
         </CardContent>
       </Card>
-
-
-
         </>
     );
 };
